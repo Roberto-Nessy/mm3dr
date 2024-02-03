@@ -168,6 +168,23 @@ hook_SaveFile_Init:
     mov r3,#0x0
     b 0x5b8b28  
 
+.global hook_OverrideFishLabHPItem
+hook_OverrideFishLabHPItem:
+    cpy r0,r6
+    push {r0-r12, lr}
+    @ According to Ghidra, r6 r5 r4 are the required 
+    @ values needed for the GetItem header, if it isn't clear.
+    cpy r2,r4
+    mov r3,#0xC
+    bl ItemOverride_GetItem
+    pop {r0-r12, lr}
+    b 0x21CB90
+    @ cpy r5,r1
+    @ push {r0-r12,lr}
+    @ bl ItemOverride_SetFishHPGetItem
+    @ pop {r0-r12,lr}
+    @ bx lr
+
 .global hook_OverrideItemIdIndex
 hook_OverrideItemIdIndex:
     push {r0}

@@ -680,8 +680,9 @@ namespace rnd {
         player->get_item_id = (s16)GetItemID::GI_FISHING_HOLE_PASS;
         return;
       }
-    } else if (override.key.type != ItemOverride_Type::OVR_CHEST && override.value.getItemId == 0x60 ||
-               (override.value.getItemId > 0x69 && override.value.getItemId < 0x71)) {
+    } else if (override.key.type != ItemOverride_Type::OVR_CHEST &&
+               (override.value.getItemId == 0x60 ||
+                (override.value.getItemId > 0x69 && override.value.getItemId < 0x71))) {
       switch (override.value.getItemId) {
       case 0x60:
         if (gExtSaveData.givenItemChecks.bottleMilkGiven == 0) {

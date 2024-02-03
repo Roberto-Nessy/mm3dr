@@ -239,6 +239,11 @@ patch_RemoveRazordSwordHealthTwo:
 patch_RemoveRazordSwordHealthThree:
     nop
 
+.section .patch_OverrideFishLabHPItem
+.global patch_OverrideFishLabHPItem
+patch_OverrideFishLabHPItem:
+    bl hook_OverrideFishLabHPItem
+
 .section .patch_OverrideItemIdIndex
 .global patch_OverrideItemIdIndex
 patch_OverrideItemIdIndex:

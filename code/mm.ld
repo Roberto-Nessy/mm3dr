@@ -235,6 +235,10 @@ SECTIONS{
     *(.patch_RemoveRazordSwordHealthThree)
   }
 
+  .patch_OverrideFishLabHPItem 0x21CB88 : {
+    *(.patch_OverrideFishLabHPItem)
+  }
+
   .patch_OverrideItemIdIndex 0x21d124 : {
     *(.patch_OverrideItemIdIndex)
   }
