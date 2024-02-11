@@ -3,6 +3,7 @@
 
 #include "common/bitfield.h"
 #include "game/common_data.h"
+#include "game/ui/screens/gearscreen.h"
 #include "rnd/extdata.h"
 #include "z3d/z3DVec.h"
 
@@ -32,6 +33,7 @@ namespace rnd {
   void SaveFile_LoadExtSaveData(u32 saveNumber);
   u8 SaveFile_GetIsSceneDiscovered(u8 sceneNum);
   extern "C" void SaveFile_SaveExtSaveData();
+  extern "C" void SaveFile_GetStoredTradeItem(game::ui::screens::GearScreen*);
 
   typedef struct {
     u32 version;  // Needs to always be the first field of the structure
@@ -115,6 +117,22 @@ namespace rnd {
     u32 scenesDiscovered[SAVEFILE_SCENES_DISCOVERED_IDX_COUNT];
     u8 itemCollected[SAVEFILE_SPOILER_ITEM_MAX];
     u8 chestRewarded[116][32];  // Reward table that's stored by scene and chest param/flag.
+    // u8 collectedTradeItems[6];
+    union TradeItemCollectedRegister {
+      u16 raw;
+
+      BitField<0, 1, u16> moon_tear;
+      BitField<1, 1, u16> town_deed;
+      BitField<2, 1, u16> swamp_deed;
+      BitField<3, 1, u16> mountain_deed;
+      BitField<4, 1, u16> ocean_deed;
+      BitField<5, 1, u16> letter_to_kafei;
+      BitField<6, 1, u16> pendant_of_memories;
+      BitField<7, 1, u16> letter_to_mama;
+      BitField<8, 1, u16> room_key;
+      BitField<9, 7, u16> unused;
+    };
+    TradeItemCollectedRegister tradeItems;
   } ExtSaveData;
 
   extern "C" ExtSaveData gExtSaveData;

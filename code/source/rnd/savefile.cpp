@@ -888,4 +888,21 @@ namespace rnd {
     extDataUnmount(fsa);
   }
 
+  static u16 menuCounter = 0;
+  extern "C" void SaveFile_GetStoredTradeItem(game::ui::screens::GearScreen * gearScreen) {
+    if (gearScreen->cursorIndex == 0) {
+      auto* gctx = rnd::GetContext().gctx;
+      const u32 newButtons = gctx->pad_state.input.new_buttons.flags;
+      
+      if (newButtons == (u32)game::pad::Button::R) {
+        game::GiveItem(game::ItemId::PendantOfMemories);
+        // rnd::util::GetPointer<void(game::ui::screens::GearScreen*)>(0x5A5B58)(gearScreen);
+        int iconId = util::GetPointer<int(game::ItemId)>(0x601E18)(game::ItemId::SwampTitleDeed);
+        game::ui::ScreenContext* sctx = rnd::util::GetPointer<game::ui::ScreenContext>(0x72F5BC);
+        util::GetPointer<void(game::ui::ScreenContext*, int)>(0x601a1c)(sctx, iconId);
+      }
+    }// 0x8041b60
+    return;
+  }
+
 }  // namespace rnd

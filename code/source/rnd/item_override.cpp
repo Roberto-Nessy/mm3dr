@@ -44,9 +44,9 @@ namespace rnd {
     rItemOverrides[0].value.getItemId = 0x26;
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x6F;
-    rItemOverrides[1].key.type = ItemOverride_Type::OVR_CHEST;
-    rItemOverrides[1].value.getItemId = 0x32;
-    rItemOverrides[1].value.looksLikeItemId = 0x32;
+    rItemOverrides[1].key.type = ItemOverride_Type::OVR_COLLECTABLE;
+    rItemOverrides[1].value.getItemId = 0xAB;
+    rItemOverrides[1].value.looksLikeItemId = 0xAB;
     rItemOverrides[2].key.scene = 0x12;
     rItemOverrides[2].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[2].value.getItemId = 0x37;
@@ -414,6 +414,10 @@ namespace rnd {
       gExtSaveData.givenItemChecks.enOskGivenItem = 1;
     } else if (actorId == game::act::Id::EnKitan) {
       getItemId = incomingNegative ? -0x03 : 0x03;
+    } else if (actorId == game::act::Id::EnGinkoMan) {
+      if (gExtSaveData.givenItemChecks.enGinkoManGivenItem == 1) {
+        getItemId = incomingNegative ? -0x03 : 0x03;
+      }
     }
 
     return getItemId;
@@ -471,12 +475,9 @@ namespace rnd {
     } else if ((s16)storedGetItemId == -(s16)rnd::GetItemID::GI_MASK_GIANTS) {
       gExtSaveData.givenItemChecks.enBoss02GivenItem = 1;
     } else if (storedActorId == game::act::Id::EnGinkoMan) {
-      game::SaveData& saveData = game::GetCommonData().save;
       if (gExtSaveData.givenItemChecks.enGinkoManGivenItem == 0) {
-        saveData.anonymous_77 = saveData.anonymous_77 | 8;
         gExtSaveData.givenItemChecks.enGinkoManGivenItem = 1;
       } else if (gExtSaveData.givenItemChecks.enGinkoManGivenItem == 1) {
-        saveData.anonymous_117 = saveData.anonymous_117 | 8;
         gExtSaveData.givenItemChecks.enGinkoManGivenItem = 2;
       }
     } else if (storedActorId == game::act::Id::EnShn) {
